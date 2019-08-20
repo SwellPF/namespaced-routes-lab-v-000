@@ -4,6 +4,9 @@ class Admin::PreferencesController < ApplicationController
     end
 
     def update
+        @preference = Preference.find(params[:id])
+        @preference.update(preference_params)
+        redirect_to admin_preferences_path
     end
 
     private
