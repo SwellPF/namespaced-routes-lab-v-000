@@ -1,4 +1,5 @@
 class SongsController < ApplicationController
+  before_action :set_preferences, only: [:index, :new]
 
   def index
     if params[:artist_id]
@@ -30,7 +31,6 @@ class SongsController < ApplicationController
   end
 
   def new
-    binding.pry
     if @preferences && !@preferences.allow_create_songs
       redirect_to songs_path
     else
@@ -75,6 +75,10 @@ class SongsController < ApplicationController
 
   def song_params
     params.require(:song).permit(:title, :artist_name)
+  end
+
+  def set_preferences
+    @preferences = Preference.first
   end
 end
 
